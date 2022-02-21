@@ -1,25 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import ChangeLangComponent from './Components/ChangeLangComponent/ChangeLangComponent';
+import CounterComponent from './Components/CounterComponent/CounterComponent';
+import HelloComponent from './Components/HelloComponent/HelloComponent';
+import VisibleComponent from './Components/VisibleComponent/VisibleComponent';
+import { connect } from "react-redux";
+import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        {this.props.isVisible ? (<div>
+          <CounterComponent />
+
+          <HelloComponent />
+          <ChangeLangComponent /></div>) : (<div>Hidded</div>)
+        }
+
+        <VisibleComponent />
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isVisible: state.isVisible,
+  };
+};
+export default connect(mapStateToProps)(App);
